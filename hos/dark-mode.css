@@ -1,0 +1,80 @@
+/* Custom Dark Mode Styles for MediQure */
+html.dark {
+    --bg-color: #111827;
+    --card-bg: #1f2937;
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --border-color: #374151;
+    --bot-bubble: #374151;
+}
+
+html.dark body {
+    background-color: var(--bg-color) !important;
+    color: var(--text-primary) !important;
+}
+
+html.dark .bg-gray-50, html.dark .bg-gray-100 {
+    background-color: var(--bg-color) !important;
+}
+
+html.dark .bg-white {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+html.dark .text-gray-900, html.dark .text-gray-800, html.dark .text-black, html.dark .text-gray-700 {
+    color: var(--text-primary) !important;
+}
+
+html.dark .text-gray-600, html.dark .text-gray-500 {
+    color: var(--text-secondary) !important;
+}
+
+html.dark nav {
+    background-color: rgba(31, 41, 55, 0.95) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+html.dark .stats-card, 
+html.dark .hospital-card, 
+html.dark .emergency-card, 
+html.dark .testimonial-card,
+html.dark .chat-container,
+html.dark .input-area,
+html.dark .modal-content,
+html.dark .symptom-option,
+html.dark .quick-reply,
+html.dark .bg-white.shadow-md.rounded-lg,
+html.dark .bg-green-50,
+html.dark .bg-blue-50 {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+html.dark .hospital-card:hover, html.dark .stats-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+html.dark .bot-message {
+    background-color: var(--bot-bubble) !important;
+    color: var(--text-primary) !important;
+}
+
+html.dark .typing-indicator {
+    background-color: var(--bot-bubble) !important;
+}
+html.dark .typing-dot {
+    background-color: #9ca3af !important;
+}
+
+html.dark input, html.dark textarea, html.dark select {
+    background-color: #374151 !important;
+    color: #f9fafb !important;
+    border-color: #4b5563 !important;
+}
+
+/* Gradients on dark mode */
+html.dark .bg-gradient-to-r.from-green-50.to-blue-50 {
+    background: linear-gradient(to right, #064e3b, #1e3a8a) !important;
+}
