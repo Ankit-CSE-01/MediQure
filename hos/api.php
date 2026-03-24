@@ -23,7 +23,7 @@ $api_url = "https://api.groq.com/openai/v1/chat/completions";
 $role = isset($inputData['role']) ? $inputData['role'] : "You are a professional medical assistant named Dr. Medi. Provide helpful, accurate medical information while reminding users to consult with their doctor for serious concerns. Keep your response concise.";
 
 $request_data = [
-    "model" => "llama3-8b-8192",
+    "model" => "llama-3.3-70b-versatile",
     "messages" => [
         ["role" => "system", "content" => $role],
         ["role" => "user", "content" => $inputData['prompt']]
