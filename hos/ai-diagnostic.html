@@ -11,10 +11,12 @@
       crossorigin="anonymous"
     />
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
       body {
         background-color: white;
         color: #0f5132;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.6;
       }
 
       .chat-container {
@@ -215,13 +217,28 @@
           prompt: promptValue
         };
 
-        // Make the API request
-        fetch('api.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestData)
+        // Make the API request completely from the frontend to bypass local PHP server network blocks
+        fetch('api.php')
+        .then(res => res.json())
+        .then(config => {
+           if(config.error) throw new Error(config.error);
+           
+           return fetch('https://api.groq.com/openai/v1/chat/completions', {
+             method: 'POST',
+             headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + config.key
+             },
+             body: JSON.stringify({
+                model: "llama3-8b-8192",
+                messages: [
+                    {role: "system", content: requestData.role},
+                    {role: "user", content: requestData.prompt}
+                ],
+                temperature: 0.7,
+                max_tokens: 1000
+             })
+           });
         })
         .then(response => {
           if (!response.ok) {
@@ -231,7 +248,7 @@
         })
         .then(data => {
           if (data.error) {
-            throw new Error(data.error);
+            throw new Error(data.error.message || data.error);
           }
           const content = data.choices?.[0]?.message?.content || "I couldn't process that request. Please try again.";
           typeText(aiMessage.querySelector("p"), content);
@@ -239,7 +256,7 @@
         .catch(error => {
           console.error('Error:', error);
           aiMessage.querySelector("p").classList.remove("typing");
-          aiMessage.querySelector("p").textContent = "Sorry, I'm having trouble connecting. Please try again later.";
+          aiMessage.querySelector("p").textContent = "Sorry, I'm having trouble connecting to the AI. Please check your network or try again later.";
           aiMessage.classList.add("error-message");
         })
         .finally(() => {
